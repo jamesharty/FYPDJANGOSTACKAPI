@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="form-signin">
+    <form action = "{% url 'login' %}" method="POST">
+      {% csrf_token %}
+      <h1 class="h3 mb-3 fw-normal">Please Sign In</h1>
+      <label for="userName" >User Name</label>
+      <input type="text" id="userName" class="form-control" placeholder="User Name" required="" autofocus="" name="userName">
+      
+      <label for="password" >Password</label>
+      <input type="password" id="password" class="form-control" placeholder="Password" required="" name="password">
+      <br>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    </form>
+
+  </main>
+
+  <style>
+
+    .form-signin{
+
+      height: auto;
+      width: 530px;
+      border: solid 2px black;
+      border-radius: 20px;
+      text-align: left;
+      margin: 0 auto;
+      margin-top: 130px;
+      text-decoration: none;
+      font-size: 20px;
+    }
+
+    form{
+      padding:9px;
+    }
+    
+    label{
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+   
+    h1{
+      text-align: center;
+      padding-bottom: 10px;
+    }
+      
+
+  </style>
+
+{% endblock %}
+

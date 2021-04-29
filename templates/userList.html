@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <button onclick="goBack()">Back</button>
+    <div class="row">
+      
+            <div class="col-12">
+                <div class="card card-margin">
+                    <div class="card-body">
+                        <div class="row search-body">
+                            <div class="col-lg-12">
+                                <div class="search-result">
+                                    <div class="result-header">
+                                        <div class="row">
+                                            
+                                            
+                                                    <div class="result-views">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="result-body">
+                                        <div class="table-responsive">
+                                            <table class="table widget-26">
+                                                <tbody>
+                                                    {% for user in individualList %}
+                                                    <tr>
+                                                        <td>
+                                                            <div class="widget-26-job-emp-img">
+                                                                <img src="{{ user.profileImage }}" alt="Company" />
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="widget-26-job-title">
+                                                                <p href="#">Display Name: {{ user.userDisplayName }}</p>
+                                                                <p class="m-0"><span class="text-muted time">Profile Link: </span><a href="{{ user.profileLink }}" class="employer-name">Stack Overflow Profile</a> </p>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="widget-26-job-info">
+                                                                <p class="type m-0">Reputation: {{ user.reputation }} </p>
+                                                                <p class="text-muted m-0">Location: <span class="location">{{ user.location}}</span></p>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="widget-26-job-salary">Tag: </div>
+                                                            <p>{{ user.tagName }}</p>
+
+                                                        </td>
+                                                        <td>
+                                                            <div class="widget-26-job-category bg-soft-base">
+                                                                <i class="indicator bg-base"></i>
+                                                                <span>Answer Score: </span>
+                                                            </div>
+                                                            <p>{{ user.answerScore }}</p>
+
+                                                        </td>
+                                                        <td>
+                                                            <div class="widget-26-job-category bg-soft-base">
+                                                                <i class="indicator bg-base"></i>
+                                                                <span>Answer Count: </span>
+                                                            </div>
+                                                            <p>{{ user.answerCount }}</p>
+
+                                                        </td>
+                                                        <td>
+                                                            <a id ="delete" href="{% url 'removeUserList' user.id %}">X</a>
+                                                        </td>
+
+
+                                                        <form class="userInfo" action="{% url 'moreInfo' %}" method='GET'>
+                                                          {% csrf_token %}
+
+                                                          <input type="hidden" name ="displayName" value= "{{ user.userDisplayName }}">
+                                                          <input type="hidden" name ="reputation" value= "{{ user.reputation }}">
+                                                          <input type="hidden" name ="tag" value= "{{ user.tag }}">
+                                                          <input type="hidden" name ="answerScore" value= "{{ user.answerScore }}">
+                                                          <input type="hidden" name ="answerCount" value= "{{ user.answerCount }}">
+                                                          <input type="hidden" name ="profileImage" value= "{{ user.profileImage }}">
+                                                          <input type="hidden" name ="bronze" value= "{{ user.bronzeCount }}">
+                                                          <input type="hidden" name ="silver" value= "{{ user.silverCount }}">
+                                                          <input type="hidden" name ="gold" value= "{{ user.goldCount }}">
+
+
+                                                      <td>
+                                                          <button>More Info</button>
+                                                      </td>
+                                                  </form>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                              {% if individualList.has_other_pages %}
+                                <ul class="pagination">
+                                  {% if individualList.has_previous %}
+                                    <li class="page-item">
+                                      <a href="?page={{individualList.previous_page_number}}" class="page-link">&laquo;</a>
+                                    </li>
+                                  {% else %}
+                                    <li class="page-item disabled">
+                                      <a class="page-link">&laquo;</a>
+                                    </li>
+                                  {% endif %}
+                                  {% for i in individualList.paginator.page_range %}
+                                    {% if individualList.number == i %}
+                                      <li class="page-item active">
+                                        <a class="page-link">{{i}}</a>
+                                      </li>
+                                    {% else %}
+                                      <li class="page-item">
+                                        <a href="?page={{i}}" class="page-link">{{i}}</a>
+                                      </li>
+                                    {% endif %}
+                                  {% endfor %}
+                                  {% if individualList.has_next %}
+                                    <li class="page-item">
+                                      <a href="?page={{individualList.next_page_number}}" class="page-link">&raquo;</a>
+                                    </li>
+                                  {% else %}
+                                    <li class="page-item disabled">
+                                      <a class="page-link">&raquo;</a>
+                                    </li>
+                                  {% endif %}
+                                </ul>
+                              {% endif %}
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <style>
+
+        .col-12{
+            margin-top: 50px;
+        }
+
+        img{
+            width: 100px;
+        }
+        #delete {
+            border-radius: 40%;
+        }
+
+        .container{
+          margin-top: 5%;
+        }
+
+    </style>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+
+{% endblock %}
+

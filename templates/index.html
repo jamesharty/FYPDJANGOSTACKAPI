@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="flex-shrink-0">
+    <div class="container">
+      <h1 class="mt-5">Stack Recruiter</h1>
+
+      <h3>Stack Overflow User Search</h3>
+      <div id="main-content">
+
+      <div id="searchInfo">
+        <h2>Form Input Info</h2>
+        <div>
+        <p><b>Tag:</b> This input controls what user skill is being searched, stack overflow uses tags when asking questions on the site. Any upvotes on questions and answers will affect the users score related to the tag.</p>
+        <p><b>Pages:</b> This controls how many pages the api will query. Each page contains 100 user items that will be obtained and filtered. The higher the page count the longer the search will take.</p>
+        <p><b>Location:</b> This filter option allows to filter the list of users by the user location listed on each users profile.</p>
+        <p><b>Reputation:</b> Each user on stack overflow has a reputation score based on total upvotes and downvotes across the site. This allows a minimum requirement to be set.</p>
+
+      </div>
+      </div>
+      <div id="formContent">
+      <form class="search" action="{% url 'results' %}" method='POST'>
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="tag">Tag:</label>
+          <input type="text" class="form-control" placeholder="python, java, etc" name="tag" required>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="pages">Pages To Query:</label>
+          <input type="text" class="form-control" placeholder="5,6,7" name="pages" required>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="location">Location:</label>
+          <input type="text" class="form-control" placeholder="London, Ireland, Cork, etc" name="location">
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="reputation">Reputation:</label>
+          <input type="text" class="form-control" placeholder="100" name="reputation">
+        </div>
+        
+        <br>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+    </div>
+  </div>
+  </div>
+
+  </main>
+
+  <style>
+
+    #main-content{
+      display: flex;
+      justify-content: center;
+    }
+
+    #searchInfo{
+      
+      border: solid 2px black;
+      border-radius: 20px;
+      margin-right: 3em;
+      background-color: rgb(175, 177, 171) ;
+      width: 500px;
+      float: left;
+    }
+
+    #searchInfo h2{
+      text-align: center;
+    }
+    
+    #searchInfo div{
+      margin-right: 5%;
+      margin-left: 5%;
+    }
+
+    .search{
+      
+      height: 360px;
+      width: 500px;
+      border: solid 2px black;
+      border-radius: 20px;
+
+      text-decoration: none;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .form-control{
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: 260px;
+    }
+
+    form{
+      padding:9px;
+    }
+    
+    label{
+      width: 200px;
+      padding-right: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      text-align: left;
+      clear: both;
+      float:left;
+    }
+
+   
+    h1{
+
+      text-align: center;
+      padding-bottom: 10px;
+    }
+
+    h3{
+      text-align: center;
+      padding-bottom: 10px;
+    }
+
+    .container{
+      margin-top:6%;
+    }
+
+
+  </style>
+
+{% endblock %}
